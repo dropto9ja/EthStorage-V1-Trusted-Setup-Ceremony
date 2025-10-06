@@ -1,0 +1,36 @@
+{
+"name": "EthStorage-V1-Trusted-Setup-Ceremony Dev Environment",
+"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+
+"features": {
+"ghcr.io/devcontainers/features/docker-in-docker:2": {
+"version": "latest"
+},
+"ghcr.io/devcontainers/features/git:1": {},
+"ghcr.io/devcontainers/features/node:1": {
+"version": "lts"
+},
+"ghcr.io/devcontainers/features/python:1": {
+"version": "3.11"
+}
+},
+
+"customizations": {
+"vscode": {
+"settings": {
+"terminal.integrated.shell.linux": "/bin/bash"
+},
+"extensions": [
+"juanblanco.solidity",
+"ms-azuretools.vscode-docker",
+"esbenp.prettier-vscode"
+]
+}
+},
+
+// Install Git LFS and Ethereum development tools
+"postCreateCommand": "sudo apt-get update && sudo apt-get install -y git-lfs && git lfs install && npm install -g hardhat truffle ganache",
+
+// Start Docker when container boots
+"postStartCommand": "sudo service docker start || true && docker version || echo 'Docker not yet available — rebuild container if needed.'"
+}
